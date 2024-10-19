@@ -31,7 +31,7 @@ def main():
     field = AsteroidField()
 
 
-    Shot.containers = (updateable, drawable)
+    Shot.containers = (updateable, drawable, bullets)
     #initialize player and starting position
     Player.containers = (updateable, drawable)
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
@@ -58,6 +58,11 @@ def main():
             if player.collision(roid):
                 print("Game Over!")
                 sys.exit()
+                
+            for bullet in bullets:
+                if bullet.collision(roid):
+                    bullet.kill()
+                    roid.kill()
         
         #update display
         pygame.display.flip()
